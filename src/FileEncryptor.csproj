@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <Authors>Erik Knudsen</Authors>
+    <Owners>eknudsen</Owners>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <Company />
+    <Copyright>Copyright © 2019 Erik Knudsen</Copyright>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageTags>dotnet dotnetcore csharp encryption decryption</PackageTags>
+    <PackageProjectUrl>https://github.com/erik1066/file-encryptor</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/erik1066/file-encryptor</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageVersion>0.0.1</PackageVersion>
+    <Version>0.0.1</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.4.3" />
+  </ItemGroup>
+
+</Project>
