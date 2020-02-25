@@ -16,11 +16,12 @@ namespace FileEncryptor
             using (FileStream fsInput = new FileStream(inputFileName,
                 FileMode.Open,
                 FileAccess.Read))
+            using (BufferedStream bsInput = new BufferedStream(fsInput))
             {
-
                 using (FileStream fsEncrypted = new FileStream(outputFileName,
                                 FileMode.Create,
                                 FileAccess.Write))
+                using (BufferedStream bsEncrypted = new BufferedStream(fsEncrypted))
                 {
 
                     byte[] salt = Encoding.ASCII.GetBytes(saltValue);
@@ -40,20 +41,21 @@ namespace FileEncryptor
                     saltValue = string.Empty;
 
                     ICryptoTransform aesEncrypt = SymmetricKey.CreateEncryptor(SymmetricKey.Key, SymmetricKey.IV);
-                    using (CryptoStream cryptostream = new CryptoStream(fsEncrypted,
+                    using (CryptoStream cryptostream = new CryptoStream(bsEncrypted,
                                         aesEncrypt,
                                         CryptoStreamMode.Write))
                     {
-                        byte[] bytearrayinput = new byte[fsInput.Length - 1];
-                        fsInput.Read(bytearrayinput, 0, bytearrayinput.Length);
-                        cryptostream.Write(bytearrayinput, 0, bytearrayinput.Length);
+                        int readByte;
+                        
+                        while((readByte = bsInput.ReadByte()) != -1)
+                        {
+                            cryptostream.WriteByte((byte)readByte);
+                        }
                     }
-
 #if WIN64
                 ZeroMemory(gch.AddrOfPinnedObject(), 32);
 #endif
                     gch.Free();
-
                     SymmetricKey.Clear();
                 }
             }
