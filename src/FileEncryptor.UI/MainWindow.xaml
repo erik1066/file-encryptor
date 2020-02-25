@@ -1,0 +1,98 @@
+﻿<Window x:Class="FileEncryptor.UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FileEncryptor.UI"
+        mc:Ignorable="d"
+        FontFamily="pack://application:,,,/fonts/#Open Sans, Times New Roman"
+        Title="MainWindow" Height="500" Width="500">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Background="#191919" TextBlock.Foreground="Gray">
+            <TextBlock Margin="9" FontSize="16" >File Encryptor</TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Background="#101010">
+            <StackPanel Margin="40, 20, 40, 0">
+                
+                <TextBlock>Input file path:</TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="30"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Name="FilePath"></TextBox>
+                    <Button Name="FilePathSelectButton" Grid.Column="1" Click="FilePathSelectButton_Click">...</Button>
+                </Grid>
+
+                <StackPanel Height="20" />
+
+                <TextBlock>Password:</TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="70"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Name="Password" />
+                    <Button Name="PasswordGenerateButton" Grid.Column="1" Click="PasswordGenerateButton_Click">AUTO-GEN</Button>
+                </Grid>
+
+                <StackPanel Height="20" />
+
+                <TextBlock>Initialization vector:</TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="70"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Name="InitVector" />
+                    <Button Name="InitVectorGenerateButton" Grid.Column="1" Click="InitVectorGenerateButton_Click" >AUTO-GEN</Button>
+                </Grid>
+
+                <StackPanel Height="20" />
+
+                <TextBlock>Salt:</TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="70"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Name="Salt" />
+                    <Button Name="SaltGenerateButton" Grid.Column="1" Click="SaltGenerateButton_Click">AUTO-GEN</Button>
+                </Grid>
+
+                <StackPanel Height="30" />
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="10" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Button Name="Encrypt" Grid.Column="0" Click="Encrypt_Click">Encrypt</Button>
+                    <Button Name="Decrypt" Grid.Column="2" Click="Decrypt_Click">Decrypt</Button>
+                </Grid>
+
+                <StackPanel Height="30" />
+
+                <TextBlock>Output file path:</TextBlock>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="40"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Name="OutputFilePath" IsReadOnly="True" />
+                    <Button Name="OutputFilePathCopyButton" Grid.Column="1" Click="OutputFilePathCopyButton_Click" >COPY</Button>
+                </Grid>
+                
+            </StackPanel>
+            
+        </StackPanel>
+    </Grid>
+</Window>

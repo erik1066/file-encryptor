@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <Authors>Erik Knudsen</Authors>
+    <Owners>eknudsen</Owners>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <Company />
+    <Copyright>Copyright © 2020 Erik Knudsen</Copyright>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageTags>dotnet dotnetcore csharp encryption decryption</PackageTags>
+    <PackageProjectUrl>https://github.com/erik1066/file-encryptor</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/erik1066/file-encryptor</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageVersion>0.0.2</PackageVersion>
+    <Version>0.0.2</Version>
+  </PropertyGroup>
+
+</Project>
