@@ -6,18 +6,33 @@
         xmlns:local="clr-namespace:FileEncryptor.UI"
         mc:Ignorable="d"
         FontFamily="pack://application:,,,/fonts/#Open Sans, Times New Roman"
-        Title="MainWindow" Height="500" Width="500">
+        Title="File Encryptor" MinHeight="500" Height="500" Width="500">
+    <Border BorderThickness="1,0,1,1" BorderBrush="Black">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40" />
+            <RowDefinition Height="4" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="48" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Background="#191919" TextBlock.Foreground="Gray">
+        <!--<StackPanel Grid.Row="0" Background="#191919" TextBlock.Foreground="Gray">
             <TextBlock Margin="9" FontSize="16" >File Encryptor</TextBlock>
+        </StackPanel>-->
+
+        <StackPanel>
+            <StackPanel.Background>
+                <LinearGradientBrush StartPoint="1,0" EndPoint="1,1" >
+
+                    <GradientStop Color="Black" Offset="0" />
+
+                    <GradientStop Color="#101010" Offset="1.0" />
+
+                </LinearGradientBrush>
+            </StackPanel.Background>
+            
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Background="#101010">
+        <StackPanel Grid.Row="1" Background="#191919">
             <StackPanel Margin="40, 20, 40, 0">
                 
                 <TextBlock>Input file path:</TextBlock>
@@ -66,7 +81,7 @@
                     <Button Name="SaltGenerateButton" Grid.Column="1" Click="SaltGenerateButton_Click">AUTO-GEN</Button>
                 </Grid>
 
-                <StackPanel Height="30" />
+                <!--<StackPanel Height="30" />
 
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -76,23 +91,51 @@
                     </Grid.ColumnDefinitions>
                     <Button Name="Encrypt" Grid.Column="0" Click="Encrypt_Click">Encrypt</Button>
                     <Button Name="Decrypt" Grid.Column="2" Click="Decrypt_Click">Decrypt</Button>
-                </Grid>
+                </Grid>-->
 
                 <StackPanel Height="30" />
 
-                <TextBlock>Output file path:</TextBlock>
+                <TextBlock Foreground="#AAAAAA">Output file path:</TextBlock>
 
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                         <ColumnDefinition Width="40"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <TextBox Name="OutputFilePath" IsReadOnly="True" />
+                    <TextBox Name="OutputFilePath" IsReadOnly="True" Background="#333333" Foreground="#999999"></TextBox>
                     <Button Name="OutputFilePathCopyButton" Grid.Column="1" Click="OutputFilePathCopyButton_Click" >COPY</Button>
                 </Grid>
-                
-            </StackPanel>
+
+                <StackPanel Height="30" />
+
+                <TextBlock Name="Outcome" FontWeight="Bold" Foreground="DarkSeaGreen"></TextBlock>
+
+                </StackPanel>
             
         </StackPanel>
+
+        <StackPanel Grid.Row="2" Background="#191919">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="128" />
+                    <ColumnDefinition Width="128" />
+                    <ColumnDefinition Width="48" />
+                </Grid.ColumnDefinitions>
+
+                <Button Name="Encrypt" Grid.Column="1" Margin="8" Click="Encrypt_Click">
+                    <Label>Encrypt</Label>
+                </Button>
+
+                <Button Name="Decrypt" Grid.Column="2" Margin="8" Click="Decrypt_Click">
+                    <Label>Decrypt</Label>
+                </Button>
+
+                <Button Name="Close" Grid.Column="3" Margin="8" Click="Close_Click">
+                    <Label>X</Label>
+                </Button>
+            </Grid>
+        </StackPanel>
     </Grid>
+    </Border>
 </Window>

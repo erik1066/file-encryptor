@@ -2,9 +2,11 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:FileEncryptor.UI"
+             xmlns:shell="clr-namespace:Microsoft.Windows.Shell;assembly=Microsoft.Windows.Shell"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
+            
             <Style TargetType="{x:Type TextBox}">
                 <Setter Property="Background" Value="#161616"/>
                 <Setter Property="Foreground" Value="White" />
@@ -19,6 +21,32 @@
             <Style TargetType="{x:Type Button}">
                 <Setter Property="Background" Value="#3C3C3C" />
                 <Setter Property="Foreground" Value="White" />
+            </Style>
+
+            <Style TargetType="{x:Type local:MainWindow}">
+                <Setter Property="shell:WindowChrome.WindowChrome">
+                    <Setter.Value>
+                        <shell:WindowChrome />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type local:MainWindow}">
+                            <Grid Background="#333333">
+                                <Border Background="Black"
+                                    Margin="0, 44, 0, 0">
+                                    <ContentPresenter Content="{TemplateBinding Content}" />
+                                </Border>
+                                <TextBlock Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title}"   
+                                VerticalAlignment="Top"
+                                HorizontalAlignment="Left"   
+                                Foreground="#AAAAAA"
+                                FontSize="16"
+                                Margin="12,12,0,0"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
             </Style>
 
         </ResourceDictionary>

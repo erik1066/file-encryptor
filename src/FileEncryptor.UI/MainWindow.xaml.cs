@@ -39,6 +39,7 @@ namespace FileEncryptor.UI
                 // Open document 
                 string filename = dlg.FileName;
                 FilePath.Text = filename;
+                Outcome.Text = string.Empty;
             }
         }
 
@@ -57,8 +58,10 @@ namespace FileEncryptor.UI
 
             try
             {
+                Outcome.Text = string.Empty;
                 FileCryptoOperations.EncryptFile(inputFilePath, outputFilePath, password, initVector, salt, 1_000_000);
                 OutputFilePath.Text = outputFilePath;
+                Outcome.Text = "Success!";
             }
             catch (Exception ex)
             {
@@ -76,8 +79,10 @@ namespace FileEncryptor.UI
 
             try
             {
+                Outcome.Text = string.Empty;
                 FileCryptoOperations.DecryptFile(inputFilePath, outputFilePath, password, initVector, salt, 1_000_000);
                 OutputFilePath.Text = outputFilePath;
+                Outcome.Text = "Success!";
             }
             catch (Exception ex)
             {
@@ -101,6 +106,11 @@ namespace FileEncryptor.UI
         {
             var salt = PasswordGenerator.Generate(24, 6);
             Salt.Text = salt;
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }
