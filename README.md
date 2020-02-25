@@ -1,6 +1,8 @@
 # File Encryptor / Decryptor
 
-A C# and .NET Core 2.2 command-line app for encrypting and decrypting files. Runs on macOS, Linux, and Windows. 
+A WPF/C# and .NET Core 3.1 desktop app for encrypting and decrypting files on Windows 10. An accompanying .NET Core command-line interface tool enables encryption/decryption to be run from a terminal on any operating system.
+
+![image of the File Encryptor desktop app](images/file-encryptor-001.png)
 
 This app has been neither vetted nor tested for security and is intended for research and development purposes only. Please do not use for production security work.
 
