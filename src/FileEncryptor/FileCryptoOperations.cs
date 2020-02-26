@@ -11,7 +11,7 @@ namespace FileEncryptor
 {
     public static class FileCryptoOperations
     {
-        public static void EncryptFile(string inputFileName, string outputFileName, string password, string initVector, string saltValue, int iterations)
+        public static void EncryptFile(string inputFileName, string outputFileName, string password, string initVector, string saltValue, int iterations, Action<double> updateProgress = null)
         {
             using (FileStream fsInput = new FileStream(inputFileName,
                 FileMode.Open,
@@ -40,16 +40,25 @@ namespace FileEncryptor
                     initVector = string.Empty;
                     saltValue = string.Empty;
 
+                    FileInfo info = new FileInfo(inputFileName);
+
                     ICryptoTransform aesEncrypt = SymmetricKey.CreateEncryptor(SymmetricKey.Key, SymmetricKey.IV);
                     using (CryptoStream cryptostream = new CryptoStream(bsEncrypted,
                                         aesEncrypt,
                                         CryptoStreamMode.Write))
                     {
                         int readByte;
+
+                        double i = 0.0;
                         
                         while((readByte = bsInput.ReadByte()) != -1)
                         {
                             cryptostream.WriteByte((byte)readByte);
+                            i++;
+                            if (i % 10 == 0)
+                            {
+                                updateProgress((i / (double)(info.Length)) * 100.0);
+                            }
                         }
                     }
 #if WIN64
@@ -61,7 +70,7 @@ namespace FileEncryptor
             }
         }
 
-        public static void DecryptFile(string inputFileName, string outputFileName, string password, string initVector, string saltValue, int iterations)
+        public static void DecryptFile(string inputFileName, string outputFileName, string password, string initVector, string saltValue, int iterations, Action<double> updateProgress = null)
         {
             byte[] salt = Encoding.ASCII.GetBytes(saltValue);
             Rfc2898DeriveBytes key = new Rfc2898DeriveBytes(password, salt, iterations);
@@ -78,6 +87,8 @@ namespace FileEncryptor
 
             initVector = string.Empty;
             saltValue = string.Empty;
+
+            FileInfo info = new FileInfo(inputFileName);
 
             FileStream fsread = new FileStream(inputFileName,
                                     FileMode.Open,
@@ -98,8 +109,18 @@ namespace FileEncryptor
             try
             {
                 int data;
+                double i = 0.0;
+
                 while ((data = cryptostreamDecr.ReadByte()) != -1)
+                {
                     fsOut.WriteByte((byte)data);
+
+                    i++;
+                    if (i % 10 == 0)
+                    {
+                        updateProgress((i / (double)(info.Length)) * 100.0);
+                    }
+                }   
 
                 cryptostreamDecr.Flush();
                 cryptostreamDecr.Close();

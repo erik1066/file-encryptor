@@ -6,21 +6,37 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
-            
+
+            <local:BooleanInverter x:Key="BooleanInverter" />
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+
             <Style TargetType="{x:Type TextBox}">
                 <Setter Property="Background" Value="#161616"/>
                 <Setter Property="Foreground" Value="White" />
                 <Setter Property="BorderBrush" Value="#424242" />
                 <Setter Property="Padding" Value="4" />
+                <Setter Property="FontFamily" Value="Open Sans" />
             </Style>
 
             <Style TargetType="{x:Type TextBlock}">
                 <Setter Property="Foreground" Value="#DCDCDC" />
+                <Setter Property="FontFamily" Value="Open Sans" />
+                <Setter Property="Margin" Value="0, 4, 0, 4" />
             </Style>
 
             <Style TargetType="{x:Type Button}">
-                <Setter Property="Background" Value="#3C3C3C" />
-                <Setter Property="Foreground" Value="White" />
+                <Setter Property="FontFamily" Value="Open Sans" />
+
+                <Style.Triggers>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Background" Value="#3C3C3C"/>
+                        <Setter Property="Foreground" Value="White"/>
+                    </Trigger>
+                    <Trigger Property="IsEnabled" Value="True">
+                        <Setter Property="Background" Value="#3C3C3C" />
+                        <Setter Property="Foreground" Value="White" />
+                    </Trigger>
+                </Style.Triggers>
             </Style>
 
             <Style TargetType="{x:Type local:MainWindow}">
@@ -32,16 +48,18 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type local:MainWindow}">
-                            <Grid Background="#333333">
+                            <Grid Background="#F44336">
                                 <Border Background="Black"
-                                    Margin="0, 44, 0, 0">
+                                    Margin="0, 40, 0, 0">
                                     <ContentPresenter Content="{TemplateBinding Content}" />
                                 </Border>
                                 <TextBlock Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title}"   
                                 VerticalAlignment="Top"
                                 HorizontalAlignment="Left"   
-                                Foreground="#AAAAAA"
+                                Foreground="#FFFFFF"
                                 FontSize="16"
+                                           FontWeight="DemiBold"
+                                           FontFamily="Open Sans"
                                 Margin="12,12,0,0"/>
                             </Grid>
                         </ControlTemplate>

@@ -6,7 +6,10 @@
         xmlns:local="clr-namespace:FileEncryptor.UI"
         mc:Ignorable="d"
         FontFamily="pack://application:,,,/fonts/#Open Sans, Times New Roman"
-        Title="File Encryptor" MinHeight="500" Height="500" Width="500">
+        Title="File Encryptor" MinHeight="530" Height="530" Width="500">
+    <Window.DataContext>
+        <local:MainWindowViewModel x:Name="vm" />
+    </Window.DataContext>
     <Border BorderThickness="1,0,1,1" BorderBrush="Black">
     <Grid>
         <Grid.RowDefinitions>
@@ -36,48 +39,61 @@
             <StackPanel Margin="40, 20, 40, 0">
                 
                 <TextBlock>Input file path:</TextBlock>
-                <Grid>
+                    <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                         <ColumnDefinition Width="30"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <TextBox Name="FilePath"></TextBox>
-                    <Button Name="FilePathSelectButton" Grid.Column="1" Click="FilePathSelectButton_Click">...</Button>
+                        <TextBox Name="InputFilePath"  IsEnabled="{Binding IsProcessing, Converter={StaticResource BooleanInverter}}" Text="{Binding InputFilePath}"></TextBox>
+                    <Button Name="InputFilePathSelectButton" Grid.Column="1" Click="InputFilePathSelectButton_Click">...</Button>
                 </Grid>
 
-                <StackPanel Height="20" />
+                    <StackPanel Height="20" />
+
+                    <TextBlock>Output file path:</TextBlock>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="30"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Name="OutputFilePath" IsEnabled="{Binding IsProcessing, Converter={StaticResource BooleanInverter}}" Text="{Binding OutputFilePath}"></TextBox>
+                        <Button Name="OutputFilePathSelectButton" Grid.Column="1" Click="OutputFilePathSelectButton_Click">...</Button>
+                    </Grid>
+
+                    <StackPanel Height="20" />
 
                 <TextBlock>Password:</TextBlock>
-                <Grid>
+                    <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                         <ColumnDefinition Width="70"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <TextBox Name="Password" />
+                        <TextBox Name="Password" IsEnabled="{Binding IsProcessing, Converter={StaticResource BooleanInverter}}" FontFamily="Consolas" Text="{Binding Password}" />
                     <Button Name="PasswordGenerateButton" Grid.Column="1" Click="PasswordGenerateButton_Click">AUTO-GEN</Button>
                 </Grid>
 
                 <StackPanel Height="20" />
 
                 <TextBlock>Initialization vector:</TextBlock>
-                <Grid>
+                    <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                         <ColumnDefinition Width="70"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <TextBox Name="InitVector" />
+                        <TextBox Name="InitVector" IsEnabled="{Binding IsProcessing, Converter={StaticResource BooleanInverter}}" FontFamily="Consolas" Text="{Binding InitVector}" />
                     <Button Name="InitVectorGenerateButton" Grid.Column="1" Click="InitVectorGenerateButton_Click" >AUTO-GEN</Button>
                 </Grid>
 
                 <StackPanel Height="20" />
 
                 <TextBlock>Salt:</TextBlock>
-                <Grid>
+                    <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                         <ColumnDefinition Width="70"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <TextBox Name="Salt" />
+                        <TextBox Name="Salt" IsEnabled="{Binding IsProcessing, Converter={StaticResource BooleanInverter}}" FontFamily="Consolas" Text="{Binding Salt}" />
                     <Button Name="SaltGenerateButton" Grid.Column="1" Click="SaltGenerateButton_Click">AUTO-GEN</Button>
                 </Grid>
 
@@ -93,29 +109,31 @@
                     <Button Name="Decrypt" Grid.Column="2" Click="Decrypt_Click">Decrypt</Button>
                 </Grid>-->
 
-                <StackPanel Height="30" />
+                <StackPanel Height="20" />
 
-                <TextBlock Foreground="#AAAAAA">Output file path:</TextBlock>
+                <!--<TextBlock Name="Outcome" Text="{Binding Outcome}" FontWeight="Bold" Foreground="DarkSeaGreen"></TextBlock>-->
 
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="40"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <TextBox Name="OutputFilePath" IsReadOnly="True" Background="#333333" Foreground="#999999"></TextBox>
-                    <Button Name="OutputFilePathCopyButton" Grid.Column="1" Click="OutputFilePathCopyButton_Click" >COPY</Button>
-                </Grid>
-
-                <StackPanel Height="30" />
-
-                <TextBlock Name="Outcome" FontWeight="Bold" Foreground="DarkSeaGreen"></TextBlock>
-
+                    <TextBlock
+                        Text="{Binding Operation}"
+                        >
+                        
+                    </TextBlock>
+                    <ProgressBar 
+                        Visibility="{Binding IsProcessing, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        x:Name="ProgressBar"
+                        Minimum="0"
+                        Maximum="100"
+                        Value="{Binding Progress}"
+                        Height="20"
+                        Background="#333333"
+                        Foreground="#F44336"
+                        BorderThickness="0"
+                        />
                 </StackPanel>
-            
         </StackPanel>
 
         <StackPanel Grid.Row="2" Background="#191919">
-            <Grid>
+                <Grid Margin="4">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="128" />
@@ -123,16 +141,16 @@
                     <ColumnDefinition Width="48" />
                 </Grid.ColumnDefinitions>
 
-                <Button Name="Encrypt" Grid.Column="1" Margin="8" Click="Encrypt_Click">
-                    <Label>Encrypt</Label>
+                <Button Name="Encrypt" Grid.Column="1" Margin="8" Command="{Binding EncryptCommand}">
+                        <TextBlock>Encrypt</TextBlock>
                 </Button>
 
-                <Button Name="Decrypt" Grid.Column="2" Margin="8" Click="Decrypt_Click">
-                    <Label>Decrypt</Label>
+                    <Button Name="Decrypt" Grid.Column="2" Margin="8" Command="{Binding DecryptCommand}">
+                        <TextBlock>Decrypt</TextBlock>
                 </Button>
 
-                <Button Name="Close" Grid.Column="3" Margin="8" Click="Close_Click">
-                    <Label>X</Label>
+                    <Button Name="Close" Grid.Column="3" Margin="8" Click="Close_Click">
+                    <TextBlock>X</TextBlock>
                 </Button>
             </Grid>
         </StackPanel>
