@@ -99,14 +99,25 @@ namespace FileEncryptor.UI
             }
         }
 
-        private string _operation = string.Empty;
-        public string Operation
+        private CryptoOperation _operation = CryptoOperation.Idle;
+        public CryptoOperation Operation
         {
             get { return _operation; }
             set
             {
                 _operation = value;
                 RaisePropertyChanged(nameof(Operation));
+            }
+        }
+
+        private string _status = string.Empty;
+        public string Status
+        {
+            get { return _status; }
+            set
+            {
+                _status = value;
+                RaisePropertyChanged(nameof(Status));
             }
         }
 
@@ -151,7 +162,8 @@ namespace FileEncryptor.UI
                     () =>
                     {
                         IsProcessing = true;
-                        Operation = "Encrypting...";
+                        Operation = CryptoOperation.Encrpyting;
+                        Status = "Encrypting...";
 
                         System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
                         sw.Start();
@@ -163,7 +175,8 @@ namespace FileEncryptor.UI
                         Outcome = "Success!";
 
                         sw.Stop();
-                        Operation = $"Encrypted successfully in {sw.Elapsed.TotalSeconds.ToString("N1")} seconds";
+                        Operation = CryptoOperation.Idle;
+                        Status = $"Encrypted successfully in {sw.Elapsed.TotalSeconds.ToString("N1")} seconds";
                         CommandManager.InvalidateRequerySuggested();
                     });
             }
@@ -202,7 +215,8 @@ namespace FileEncryptor.UI
                     () =>
                     {
                         IsProcessing = true;
-                        Operation = "Decrypting...";
+                        Operation = CryptoOperation.Decrypting;
+                        Status = "Decrypting...";
 
                         System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
                         sw.Start();
@@ -214,7 +228,8 @@ namespace FileEncryptor.UI
                         Outcome = "Success!";
 
                         sw.Stop();
-                        Operation = $"Decrypted successfully in {sw.Elapsed.TotalSeconds.ToString("N1")} seconds";
+                        Operation = CryptoOperation.Idle;
+                        Status = $"Decrypted successfully in {sw.Elapsed.TotalSeconds.ToString("N1")} seconds";
                         CommandManager.InvalidateRequerySuggested();
                     });
             }
@@ -228,7 +243,15 @@ namespace FileEncryptor.UI
 
         private void UpdateProgress(double progress)
         {
+            Status = $"{Operation} ({Progress.ToString("N0")}%)...";
             Progress = progress;
+        }
+
+        public enum CryptoOperation
+        {
+            Encrpyting,
+            Decrypting,
+            Idle
         }
     }
 }

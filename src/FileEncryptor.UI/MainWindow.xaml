@@ -3,9 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:shell="clr-namespace:Microsoft.Windows.Shell;assembly=Microsoft.Windows.Shell"
         xmlns:local="clr-namespace:FileEncryptor.UI"
         mc:Ignorable="d"
-        WindowStyle="ToolWindow" ResizeMode="CanResizeWithGrip"
+        Background="#191919"
         FontFamily="pack://application:,,,/fonts/#Open Sans, Times New Roman"
         Title="File Encryptor" MinHeight="530" Height="530" MinWidth="500" Width="500">
     <Window.DataContext>
@@ -19,11 +20,7 @@
             <RowDefinition Height="48" />
         </Grid.RowDefinitions>
 
-        <!--<StackPanel Grid.Row="0" Background="#191919" TextBlock.Foreground="Gray">
-            <TextBlock Margin="9" FontSize="16" >File Encryptor</TextBlock>
-        </StackPanel>-->
-
-        <StackPanel>
+        <StackPanel Grid.Row="0">
             <StackPanel.Background>
                 <LinearGradientBrush StartPoint="1,0" EndPoint="1,1" >
 
@@ -107,11 +104,8 @@
                     
                 <StackPanel Height="20" />
 
-                <!--<TextBlock Name="Outcome" Text="{Binding Outcome}" FontWeight="Bold" Foreground="DarkSeaGreen"></TextBlock>-->
-
                     <TextBlock
-                        Text="{Binding Operation}"
-                        >
+                        Text="{Binding Status}">
                         
                     </TextBlock>
                     <ProgressBar 
