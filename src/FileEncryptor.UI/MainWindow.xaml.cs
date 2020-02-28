@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,21 @@ namespace FileEncryptor.UI
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            if (ViewModel.IsProcessing)
+            {
+                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show($"Closing the app will cancel the crypto operation. Proceed?", "Close Confirmation", System.Windows.MessageBoxButton.YesNo);
+                if (messageBoxResult == MessageBoxResult.No)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+            }
+
+            base.OnClosing(e);
         }
 
         private MainWindowViewModel ViewModel => ((this.DataContext) as MainWindowViewModel);
@@ -96,8 +112,22 @@ namespace FileEncryptor.UI
 
         private void Close_Click(object sender, RoutedEventArgs e)
         {
-            if (ViewModel.IsProcessing) return;
             this.Close();
+        }
+
+        private void PasswordCopyButton_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(ViewModel.Password);
+        }
+
+        private void SaltCopyButton_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(ViewModel.Salt);
+        }
+
+        private void InitVectorCopyButton_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(ViewModel.InitVector);
         }
     }
 }

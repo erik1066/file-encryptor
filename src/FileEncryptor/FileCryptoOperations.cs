@@ -48,7 +48,6 @@ namespace FileEncryptor
                                         CryptoStreamMode.Write))
                     {
                         int readByte;
-
                         double i = 0.0;
                         
                         while((readByte = bsInput.ReadByte()) != -1)

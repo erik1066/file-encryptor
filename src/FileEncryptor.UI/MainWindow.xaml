@@ -5,13 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FileEncryptor.UI"
         mc:Ignorable="d"
+        WindowStyle="ToolWindow" ResizeMode="CanResizeWithGrip"
         FontFamily="pack://application:,,,/fonts/#Open Sans, Times New Roman"
-        Title="File Encryptor" MinHeight="530" Height="530" Width="500">
+        Title="File Encryptor" MinHeight="530" Height="530" MinWidth="500" Width="500">
     <Window.DataContext>
         <local:MainWindowViewModel x:Name="vm" />
     </Window.DataContext>
     <Border BorderThickness="1,0,1,1" BorderBrush="Black">
-    <Grid>
+    <Grid TextBlock.FontSize="14" >
         <Grid.RowDefinitions>
             <RowDefinition Height="4" />
             <RowDefinition Height="*" />
@@ -36,7 +37,7 @@
         </StackPanel>
 
         <StackPanel Grid.Row="1" Background="#191919">
-            <StackPanel Margin="40, 20, 40, 0">
+            <StackPanel Margin="40, 10, 40, 0">
                 
                 <TextBlock>Input file path:</TextBlock>
                     <Grid>
@@ -48,7 +49,7 @@
                     <Button Name="InputFilePathSelectButton" Grid.Column="1" Click="InputFilePathSelectButton_Click">...</Button>
                 </Grid>
 
-                    <StackPanel Height="20" />
+                    <StackPanel Height="10" />
 
                     <TextBlock>Output file path:</TextBlock>
 
@@ -61,54 +62,49 @@
                         <Button Name="OutputFilePathSelectButton" Grid.Column="1" Click="OutputFilePathSelectButton_Click">...</Button>
                     </Grid>
 
-                    <StackPanel Height="20" />
+                    <StackPanel Height="10" />
 
                 <TextBlock>Password:</TextBlock>
                     <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="70"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                         <TextBox Name="Password" IsEnabled="{Binding IsProcessing, Converter={StaticResource BooleanInverter}}" FontFamily="Consolas" Text="{Binding Password}" />
-                    <Button Name="PasswordGenerateButton" Grid.Column="1" Click="PasswordGenerateButton_Click">AUTO-GEN</Button>
+                        <Button Name="PasswordGenerateButton" Grid.Column="1" Click="PasswordGenerateButton_Click">Auto</Button>
+                        <Button Name="PasswordCopyButton" Grid.Column="2" Click="PasswordCopyButton_Click">Copy</Button>
                 </Grid>
 
-                <StackPanel Height="20" />
+                <StackPanel Height="10" />
 
                 <TextBlock>Initialization vector:</TextBlock>
                     <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="70"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                            <ColumnDefinition Width="50"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
                         <TextBox Name="InitVector" IsEnabled="{Binding IsProcessing, Converter={StaticResource BooleanInverter}}" FontFamily="Consolas" Text="{Binding InitVector}" />
-                    <Button Name="InitVectorGenerateButton" Grid.Column="1" Click="InitVectorGenerateButton_Click" >AUTO-GEN</Button>
+                    <Button Name="InitVectorGenerateButton" Grid.Column="1" Click="InitVectorGenerateButton_Click" >Auto</Button>
+                        <Button Name="InitVectorCopyButton" Grid.Column="2" Click="InitVectorCopyButton_Click">Copy</Button>
                 </Grid>
 
-                <StackPanel Height="20" />
+                <StackPanel Height="10" />
 
                 <TextBlock>Salt:</TextBlock>
                     <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="70"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                            <ColumnDefinition Width="50"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
                         <TextBox Name="Salt" IsEnabled="{Binding IsProcessing, Converter={StaticResource BooleanInverter}}" FontFamily="Consolas" Text="{Binding Salt}" />
-                    <Button Name="SaltGenerateButton" Grid.Column="1" Click="SaltGenerateButton_Click">AUTO-GEN</Button>
+                    <Button Name="SaltGenerateButton" Grid.Column="1" Click="SaltGenerateButton_Click">Auto</Button>
+                        <Button Name="SaltCopyButton" Grid.Column="2" Click="SaltCopyButton_Click">Copy</Button>
                 </Grid>
 
-                <!--<StackPanel Height="30" />
-
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="10" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Button Name="Encrypt" Grid.Column="0" Click="Encrypt_Click">Encrypt</Button>
-                    <Button Name="Decrypt" Grid.Column="2" Click="Decrypt_Click">Decrypt</Button>
-                </Grid>-->
-
+                    
                 <StackPanel Height="20" />
 
                 <!--<TextBlock Name="Outcome" Text="{Binding Outcome}" FontWeight="Bold" Foreground="DarkSeaGreen"></TextBlock>-->
@@ -147,9 +143,9 @@
 
                     <Button Name="Decrypt" Grid.Column="2" Margin="8" Command="{Binding DecryptCommand}">
                         <TextBlock>Decrypt</TextBlock>
-                </Button>
+                    </Button>
 
-                    <Button Name="Close" Grid.Column="3" Margin="8" Click="Close_Click">
+                    <Button Name="Close" Grid.Column="3" Margin="8" Background="Red" Click="Close_Click">
                     <TextBlock>X</TextBlock>
                 </Button>
             </Grid>
