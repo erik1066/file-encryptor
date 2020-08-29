@@ -1,5 +1,7 @@
 # File Encryptor / Decryptor
 
+**This repository has been archived and will no longer be maintained. The file encryption features have been moved to the [DevTools Project](https://github.com/erik1066/devtools).**
+
 A WPF/C# and .NET Core 3.1 desktop app for encrypting and decrypting files on Windows 10. An accompanying .NET Core command-line interface tool enables encryption/decryption to be run from a terminal on any operating system.
 
 ![image of the File Encryptor desktop app](images/file-encryptor-001.png)
